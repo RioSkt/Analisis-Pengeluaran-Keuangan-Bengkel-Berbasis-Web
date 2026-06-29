@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Fiest - Sistem Analisis Pengeluaran Keuangan</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo-area">
+            <img src="assets/logo.png" alt="Logo Motor Fiest">
+            <h2>Motor Fiest</h2>
+        </div>
+
+        <ul class="menu">
+
+            <li>
+                <a href="#" class="nav-link active" data-page="home">
+                    🏠 Home
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="nav-link" data-page="pengeluaran">
+                    💰 Pengeluaran
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="nav-link" data-page="laporan">
+                    📊 Laporan
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="nav-link" data-page="arsip">
+                    💾 Arsip
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="nav-link" data-page="tentang">
+                    ℹ️ Tentang
+                </a>
+            </li>
+
+        </ul>
+
+        <div id="clock"></div>
+
+    </nav>
+
+    <!-- ================= HOME ================= -->
+
+    <section id="home" class="page active-page">
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <h1>
+                    Sistem Analisis Pengeluaran Keuangan
+                </h1>
+
+                <p>
+                    Website untuk membantu pencatatan dan analisis
+                    pengeluaran keuangan Bengkel Motor Fiest
+                    secara cepat, mudah, dan terstruktur.
+                </p>
+
+                <button onclick="bukaPengeluaran()">
+                    Mulai Kelola Pengeluaran
+                </button>
+
+                <div class="hero-images">
+
+                    <img src="assets/bengkel1.jpg"
+                        alt="Bengkel Motor Fiest">
+
+                    <img src="assets/bengkel2.jpg"
+                        alt="Bengkel Motor Fiest">
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- DASHBOARD -->
+
+        <section class="dashboard">
+
+            <div class="card">
+                <h3>Total Pengeluaran</h3>
+                <p id="totalPengeluaran">Rp 0</p>
+            </div>
+
+            <div class="card">
+                <h3>Jumlah Transaksi</h3>
+                <p id="jumlahTransaksi">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Kategori Terbesar</h3>
+                <p id="kategoriTerbesar">-</p>
+            </div>
+
+            <div class="card">
+                <h3>Pengeluaran Terbesar</h3>
+                <p id="pengeluaranTerbesar">-</p>
+            </div>
+
+        </section>
+
+    </section>
+
+    <!-- ================= PENGELUARAN ================= -->
+
+    <section id="pengeluaran" class="page">
+
+        <h2>💰 Manajemen Pengeluaran</h2>
+
+        <div class="form-container">
+
+            <input type="date" id="tanggal">
+
+            <select id="kategori">
+
+                <option value="">Pilih Kategori</option>
+
+                <option>Motor</option>
+
+                <option>Sparepart</option>
+
+                <option>Oli</option>
+
+                <option>Aksesoris</option>
+
+                <option>Peralatan Bengkel</option>
+
+                <option>Listrik</option>
+
+                <option>Operasional</option>
+
+                <option>Modifikasi</option>
+
+                <option>Lainnya</option>
+
+        </select>
+
+            <input type="text"
+                id="keterangan"
+                placeholder="Keterangan Pengeluaran">
+
+            <input type="number"
+                id="nominal"
+                placeholder="Nominal">
+
+            <button onclick="tambahTransaksi()">
+                Simpan Pengeluaran
+            </button>
+
+        </div>
+
+        <div class="filter-container">
+
+            <select id="filterBulan"
+                onchange="filterBulan()">
+
+            <option value="">
+                Semua Bulan
+            </option>
+
+            <option value="01">Januari</option>
+            <option value="02">Februari</option>
+            <option value="03">Maret</option>
+            <option value="04">April</option>
+            <option value="05">Mei</option>
+            <option value="06">Juni</option>
+            <option value="07">Juli</option>
+            <option value="08">Agustus</option>
+            <option value="09">September</option>
+            <option value="10">Oktober</option>
+            <option value="11">November</option>
+            <option value="12">Desember</option>
+
+            </select>
+
+        </div>
+
+        <div class="search-container">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Cari transaksi..."
+                onkeyup="cariTransaksi()">
+
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Kategori</th>
+                        <th>Keterangan</th>
+                        <th>Nominal</th>
+                        <th>Aksi</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="dataTransaksi">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <!-- ================= LAPORAN ================= -->
+
+    <section id="laporan" class="page">
+
+        <h2>📊 Laporan Pengeluaran</h2>
+
+        <div class="laporan-card">
+
+            <h3>Total Pengeluaran</h3>
+
+            <p id="laporanTotal">
+                Rp 0
+            </p>
+
+        </div>
+
+        <div class="laporan-card">
+
+            <h3>Total Transaksi</h3>
+
+            <p id="laporanJumlah">
+                0
+            </p>
+
+        </div>
+
+        <canvas id="myChart" height="120"></canvas>
+
+        <div id="statistikKategori">
+
+        </div>
+
+    </section>
+
+    <!-- ================= ARSIP ================= -->
+
+    <section id="arsip" class="page">
+
+        <h2>💾 Arsip Nota</h2>
+
+        <div class="arsip-container">
+
+            <button onclick="exportCSV()">
+                Export CSV
+            </button>
+
+            <button onclick="exportPDF()">
+                Export PDF
+            </button>
+
+            <button onclick="backupData()">
+                Backup Data
+            </button>
+
+            <input
+                type="file"
+                id="restoreFile"
+                accept=".json"
+                onchange="restoreData(event)">
+
+        </div>
+
+    </section>
+
+    <!-- ================= TENTANG ================= -->
+
+    <section id="tentang" class="page">
+
+        <div class="tentang-container">
+
+            <img src="assets/logo.png"
+                alt="Motor Fiest"
+                class="logo-tentang">
+
+            <h2>Motor Fiest</h2>
+
+            <p>
+                Big Motorcycle Enthusiast
+            </p>
+
+            <p>
+                Accessories - Spareparts -
+                Modification - Custom Bike
+            </p>
+
+            <p>
+                📍
+                <a
+                    href="https://maps.app.goo.gl/xbLGiEsj2XXLuUdPA"
+                    target="_blank"
+                    class="map-link">
+
+                    Jalan Raya Duta Pelni No 13,
+                    Depok, Jawa Barat
+
+                </a>
+            </p>
+
+            <p>
+                📞 +62 819 9888 5553
+            </p>
+
+            <p>
+                🕘 09.00 - 17.00
+            </p>
+
+            <p>
+                Instagram :
+                @motorfiest
+            </p>
+
+            <p>
+                Store :
+                @motorfieststore
+            </p>
+
+            <img src="assets/motor.jpg"
+                alt="Motor Showcase"
+                class="motor-showcase">
+
+        </div>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h3>Motor Fiest</h3>
+
+        <p>
+            Sistem Analisis Pengeluaran Keuangan
+            Bengkel Motor Fiest
+        </p>
+
+        <p>
+            © 2026 Motor Fiest
+        </p>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
